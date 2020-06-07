@@ -47,5 +47,5 @@ RUN set -ex; \
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 EXPOSE 80/tcp 137/udp 138/udp 139/tcp 443/tcp 445/tcp 445/udp
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 CMD httpd -DFOREGROUND "$@" & smbd --foreground --no-process-group $SMBDOPTIONS 
