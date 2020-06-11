@@ -24,8 +24,6 @@ HTTPD_PREFIX="${HTTPD_PREFIX:-/usr/local/apache2}"
 addgroup "$USERNAME"
 adduser "$USERNAME" -SHD --ingroup "$USERNAME"
 
-set -e
-
 # Run httpd as $USERNAME (instead of "daemon").
 for i in User Group; do \
     sed -i -e "s|^$i .*|$i $USERNAME|" "conf/httpd.conf"; \
