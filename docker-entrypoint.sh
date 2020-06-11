@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+# set -e
 
 if [ "x$SHARE_NAME" == "x" ]; then 
     SHARE_NAME=="EasyNAS"
@@ -22,8 +22,9 @@ HTTPD_PREFIX="${HTTPD_PREFIX:-/usr/local/apache2}"
 
 # Add system user.
 addgroup "$USERNAME"
-adduser --disabled-password --gecos "" --ingroup "$USERNAME" --no-create-home "$USERNAME"
+adduser "$USERNAME" -SHD --ingroup "$USERNAME"
 
+set -e
 
 # Run httpd as $USERNAME (instead of "daemon").
 for i in User Group; do \
@@ -191,6 +192,6 @@ EOF
 [ ! -d "/var/lib/dav/data" ] && mkdir -p "/var/lib/dav/data"
 [ ! -e "/var/lib/dav/DavLock" ] && touch "/var/lib/dav/DavLock"
 
-chown -R $USERNAME:$USERNAME "/var/lib/dav"
+chown -R $USERNAME:root "/var/lib/dav"
 
 exec "$@"
